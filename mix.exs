@@ -26,3 +26,14 @@ defmodule Firedis.MixProject do
     ]
   end
 end
+
+defmodule Mix.Tasks.Compile.HiRedis do
+
+  def run(_) do
+    File.mkdir_p("priv")
+    {result, _error_code} = System.cmd("make", ["priv/hiredis.so"], stderr_to_stdout: true)
+    IO.binwrite(result)
+    :ok
+  end
+
+end
