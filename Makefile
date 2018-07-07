@@ -3,7 +3,7 @@ ERLANG_PATH = $(shell erl -eval 'io:format("~s", [lists:concat([code:root_dir(),
 CFLAGS += -I$(ERLANG_PATH)
 CFLAGS += -I/usr/local/include -I/usr/include -L/usr/local/lib -L/usr/lib
 CFLAGS += -lhiredis
-CFLAGS += -Wno-unused-function
+CFLAGS += -Wno-unused-function -std=gnu99 -fPIC
 
 
 all: build

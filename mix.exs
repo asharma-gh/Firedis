@@ -30,6 +30,7 @@ end
 defmodule Mix.Tasks.Compile.HiRedis do
 
   def run(_) do
+    IO.puts("running")
     File.mkdir_p("priv")
     {result, _error_code} = System.cmd("make", ["priv/hiredis.so"], stderr_to_stdout: true)
     IO.binwrite(result)
