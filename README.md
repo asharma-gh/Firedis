@@ -5,6 +5,10 @@ High performance Redis client using C NIFs
 this library depends on a system-wide installation of `hiredis`
 `sudo apt install libhiredis-dev`
 
+compile nif:
+
+`mix compile.hi_redis`
+
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `firedis` to your list of dependencies in `mix.exs`:
 
