@@ -19,23 +19,23 @@ static int port = 6379;
 // query :: String -> String
 // takes in a redis command string `SET FOO BAR` and returns the result
 static ERL_NIF_TERM query(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
-//  pthread_mutex_lock(hiredis_lock); 
-//  ErlNifBinary ex_query_str;
-//
-//  // if input is not a string error
-//  if (enif_inspect_iolist_as_binary(env, argv[0], &ex_query_str)) {
-//    return enif_make_badarg(env);
-//  }
-//
-//  char* c_query_str = strndup((char*)ex_query_str.data, ex_query_str.size);
-//
-//  redis_reply = redisCommand(redis_context, c_query_str);
-//  char result[redis_reply->len + 1];
-//  memcpy(result, redis_reply->str, redis_reply->len + 1);
-//  
-//  freeReplyObject(redis_reply);
-//  free(c_query_str);
-//  pthread_mutex_unlock(hiredis_lock);
+  pthread_mutex_lock(hiredis_lock); 
+  ErlNifBinary ex_query_str;
+
+  // if input is not a string error
+  if (enif_inspect_iolist_as_binary(env, argv[0], &ex_query_str)) {
+    return enif_make_badarg(env);
+  }
+
+  char* c_query_str = strndup((char*)ex_query_str.data, ex_query_str.size);
+
+  redis_reply = redisCommand(redis_context, c_query_str);
+  char result[redis_reply->len + 1];
+  memcpy(result, redis_reply->str, redis_reply->len + 1);
+  
+  freeReplyObject(redis_reply);
+  free(c_query_str);
+  pthread_mutex_unlock(hiredis_lock);
   return enif_make_string(env, "foo", ERL_NIF_LATIN1);
 }
 
