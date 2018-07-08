@@ -1,8 +1,9 @@
 # Firedis
 
-High performance Redis client using C NIFs
+High performance Redis client using C NIFs. Also essentially an updated Elixir version of https://github.com/basho-labs/hierdis
 ## Installation
-this library depends on a system-wide installation of `hiredis`
+this library depends on a system-wide installation of `hiredis`:
+
 `sudo apt install libhiredis-dev`
 
 compile nif:
