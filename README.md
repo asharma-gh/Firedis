@@ -26,4 +26,4 @@ be found at [https://hexdocs.pm/firedis](https://hexdocs.pm/firedis).
 
 Special thanks to this tutorial 
 
-http://webcache.googleusercontent.com/search?q=cache:ovwDR-XfKs8J:cs.mcgill.ca/~mxia3/2017/06/18/tutorial-extending-elixir-with-c-using-NIF/+&cd=2&hl=en&ct=clnk&gl=us&client=ubuntu
+https://www.cs.mcgill.ca/~mxia3/2017/06/18/tutorial-extending-elixir-with-c-using-NIF/
