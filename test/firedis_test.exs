@@ -2,7 +2,7 @@ defmodule FiredisTest do
   use ExUnit.Case
   doctest Firedis
 
-  test "greets the world" do
-    assert Firedis.hello() == :world
+  test "ping" do
+    assert Firedis.Hiredis.query("PING") == 'PONG'
   end
 end
