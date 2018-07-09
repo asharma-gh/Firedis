@@ -29,9 +29,13 @@ static ERL_NIF_TERM query(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
     return enif_make_badarg(env);
   }
 
-  char *c_query_str = strndup((char*)ex_query_str.data, ex_query_str.size);
+  char* c_query_str = strndup((char*)ex_query_str.data, ex_query_str.size);
 
   redis_reply = redisCommand(redis_context, c_query_str);
+  if (redis_reply == NULL) {
+    printf("Error executing command to redis...\n");
+    return enif_make_badarg(env);
+  }
   char result[redis_reply->len + 1];
   memcpy(result, redis_reply->str, redis_reply->len + 1);
 
