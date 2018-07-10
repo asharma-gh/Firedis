@@ -30,7 +30,9 @@ static ERL_NIF_TERM query(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
   }
 
   char* c_query_str = strndup((char*)ex_query_str.data, ex_query_str.size);
-
+  if (redis_context == NULL) {
+    return enif_raise_exception(env, enif_make_atom(env, "enotfound"));
+  }
   redis_reply = redisCommand(redis_context, c_query_str);
   if (redis_reply == NULL) {
     return enif_raise_exception(env, enif_make_atom(env, "econnrefused"));
