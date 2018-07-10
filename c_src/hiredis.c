@@ -33,8 +33,7 @@ static ERL_NIF_TERM query(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
 
   redis_reply = redisCommand(redis_context, c_query_str);
   if (redis_reply == NULL) {
-    printf("Error executing command to redis...\n");
-    return enif_make_badarg(env);
+    return enif_raise_exception(env, enif_make_atom(env, "econnrefused"));
   }
   char result[redis_reply->len + 1];
   memcpy(result, redis_reply->str, redis_reply->len + 1);
@@ -63,10 +62,14 @@ static int load(ErlNifEnv* env, void** priv, ERL_NIF_TERM info) {
   redis_context = redisConnectWithTimeout(hostname, port, timeout);
   if (redis_context == NULL || redis_context->err) {
     if (redis_context) {
+#ifdef DEBUG
       printf("Connection error: %s\n", redis_context->errstr);
+#endif
       redisFree(redis_context);
     } else {
+#ifdef DEBUG
       printf("Connection error: can't allocate redis context\n");
+#endif
       return 1;
     }
   }
@@ -77,7 +80,7 @@ static int load(ErlNifEnv* env, void** priv, ERL_NIF_TERM info) {
 static int reload(ErlNifEnv* env, void** priv, ERL_NIF_TERM info) { return 0; }
 
 static int upgrade(ErlNifEnv* env, void** priv, void** old_priv,
-                   ERL_NIF_TERM info) {
+    ERL_NIF_TERM info) {
 
   return load(env, priv, info);
 }
